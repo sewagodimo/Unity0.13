@@ -59,3 +59,81 @@ The error message is still there you say? Well lets get rid of it. Drag the Text
 ![Complete.png](ReadMeImages/Complete.png)
 
 ## Now the scripts... ##
+Wondering how all the scripts work? Well lets go look at them! Maybe we can even find some things to add to the game ;)
+
+### The player controller ###
+The player controller controls a few things. This includes the player movement, particle effect creation and score manipulation. 
+
+First we have variable declarations and variable caching. The *Speed*, *CollectableParticlePrefab* and *ScoreText* objects are public, which allows them to be set in the Editor. (Watch out for overwriting the values between script and inspector!)
+
+```c#
+public float Speed;
+public GameObject CollectableParticlePrefab;
+public Text ScoreText;
+```
+
+Next the ***RigidBody*** component is chached in the **Start** event. It would be very expensive to get the RigidBody in every update!
+
+```c#
+private Rigidbody _rigidBody;
+
+void Start ()
+{
+	_rigidBody = GetComponent<Rigidbody>();
+}
+```
+
+The movement is handled in the ***FixedUpdate*** event. As we are doing physics calculations, we want to do this in synch with the physics engine. If you would like to do this in the Update make sure to use deltaTime! The <code>Input.GetAxis("Horizontal")</code> and <code>Input.GetAxis ("Vertical")</code> are a short hand for getting the individual input keys, such as <code>Input.GetKey(KeyCode.UpArrow)</code>. 
+
+A force is applied in the direction of movement across the X-Z plane. This is calculated in the ***movement*** variable. Notice how the Speed variable is used here? Well you can adjust the Speed in the inspector during play to find the best movement force.
+
+```c#
+void FixedUpdate ()
+{
+	float moveHorizontal = Input.GetAxis ("Horizontal");
+	float moveVertical = Input.GetAxis ("Vertical");
+
+	Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
+
+	_rigidBody.AddForce (movement * Speed);
+}
+```
+
+The ***OnTriggerEnter*** event is called when a collider collides with a collider that acts as a trigger (the IsTrigger check box is ticked). A trigger collider does not react phyiscally, but will be called on collisions. In contrast the ***OnCollisionEnter*** event is called between to colliders that are not triggers, which also react physically with one another. Try making the *Collectable* object's collider non-trigger and replace the OnTriggerEnter function with [OnCollisionEnter](http://docs.unity3d.com/ScriptReference/Collider.OnCollisionEnter.html).
+
+```c#
+void OnTriggerEnter(Collider other)
+{
+	if (other.gameObject.tag == "Collectable") 
+	{
+        Debug.Log("Bashed into " + other.gameObject.tag);
+
+        Instantiate (CollectableParticlePrefab, other.transform.position, other.transform.rotation);
+		Destroy (other.gameObject);
+	    CollectableSpawner.NumCollectablesFound++;
+
+		if(ScoreText == null)
+		{
+			Debug.LogWarning("ScoreText is null!");
+		}
+
+	    if (CollectableSpawner.NumCollectablesFound >= CollectableSpawner.NumCollectables)
+        {
+            if (ScoreText != null)
+            {
+                ScoreText.text = "You Win!";
+            }
+			//Hmmm... why is this commented out?
+//                Invoke("ReloadScene", 5);
+	    }
+	    else
+        {
+            if (ScoreText != null)
+            {
+                ScoreText.text = "Collectables: " + CollectableSpawner.NumCollectablesFound + "/" +
+                                 CollectableSpawner.NumCollectables;
+            }
+        }
+    }
+}
+```

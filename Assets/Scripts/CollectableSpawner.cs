@@ -31,7 +31,7 @@ public class CollectableSpawner : MonoBehaviour
         }
         else
         {
-            Debug.LogError("ScoreText is null!");
+			Debug.LogWarning("ScoreText is null!");
         }
 
     }

@@ -31,13 +31,16 @@ public class PlayerController : MonoBehaviour
 	{
 		if (other.gameObject.tag == "Collectable") 
 		{
-
             Debug.Log("Bashed into " + other.gameObject.tag);
 
             Instantiate (CollectableParticlePrefab, other.transform.position, other.transform.rotation);
 			Destroy (other.gameObject);
 		    CollectableSpawner.NumCollectablesFound++;
 
+			if(ScoreText == null)
+			{
+				Debug.LogWarning("ScoreText is null!");
+			}
 
 		    if (CollectableSpawner.NumCollectablesFound >= CollectableSpawner.NumCollectables)
             {
@@ -45,11 +48,8 @@ public class PlayerController : MonoBehaviour
                 {
                     ScoreText.text = "You Win!";
                 }
-                else
-                {
-                    Debug.LogError("ScoreText is null!");
-                }
-                Invoke("ReloadScene", 5);
+				//Hmmm... why is this commented out?
+//                Invoke("ReloadScene", 5);
 		    }
 		    else
             {
@@ -57,11 +57,6 @@ public class PlayerController : MonoBehaviour
                 {
                     ScoreText.text = "Collectables: " + CollectableSpawner.NumCollectablesFound + "/" +
                                      CollectableSpawner.NumCollectables;
-
-                }
-                else
-                {
-                    Debug.LogError("ScoreText is null!");
                 }
             }
         }
