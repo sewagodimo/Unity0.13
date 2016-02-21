@@ -1,13 +1,15 @@
+[TOC]
+
 # Roll-A-Ball tutorial 1.1 #
 This project is a tutorial based on Unity3D's [Roll-A-Ball](https://unity3d.com/learn/tutorials/projects/roll-ball-tutorial) tutorial.
 
-### What is this tutorial for? ###
+## What is this tutorial for? ##
 This tutorial acts as an introduction to the Unity work-flow. In this tutorial, you will learn how to use GameObjects, Prefabs, components (e.g. MonoBehaviours) and Scenes.
 
-### Who do I talk to? ###
+## Who do I talk to? ##
 * If you have any questions, please contact the owner of this project (Ryan Mazzolini).
 
-### How do I get set up? ###
+## How do I get set up? ##
 * Clone the project from [https://bitbucket.org/creative630/rollaball](https://bitbucket.org/creative630/rollaball)
 * Open the project in Unity, you can do this by browsing to the project through Unity, or by double clicking on a scene in the project's Assets folder.
 * If not open already, open the "RollABall" scene in the Scenes folder under the project view.
@@ -51,3 +53,7 @@ Getting the hang of setting up game objects yet? Well select the Text object and
 If you look at the game view you should see the text in the bottom left hand corner! If not double check all the component variables on the Text object.
 
 The error message is still there you say? Well lets get rid of it. Drag the Text object from the hierarchy onto the "Collectable Spawner" and Player's "Player controller" script. The text should be working now! Yay! A complete game!
+
+![Complete.png](ReadMeImages/Complete.png)
+
+## Now the scripts... ##
