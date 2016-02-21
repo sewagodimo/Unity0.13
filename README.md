@@ -1,29 +1,15 @@
-# README #
+# Roll a ball tutorial #
+This project is a tutorial based on Unity3D's [RollABall]() tutorial. 
 
-This README would normally document whatever steps are necessary to get your application up and running.
-
-### What is this repository for? ###
-
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+### What is this tutorial for? ###
+This tutorial acts as an introduction to the Unity work-flow. In this tutorial, you will learn how to use GameObjects, Prefabs, components (e.g. MonoBehaviours) and Scenes.
 
 ### How do I get set up? ###
+* Clone this project from BitBucket.org. 
+* Open the project in Unity, you can do this by browsing to the project through Unity, or by double clicking on a scene in the project's Assets folder.
+* Next, open the "RollABall" scene in the Scenes folder under the project view.
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
 
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
 
 ### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+* If you have any questions, please contact the owner of this repo (Ryan Mazzolini).
