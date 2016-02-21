@@ -44,7 +44,7 @@ Do you notice the red text saying "**ScoreText is null**" when you bashed into a
 I think one of the components is trying to tell you something...
 
 ### Lets add text UI! ###
-Click on the *GameObject*, then *UI*, then *Text* menu items. This will create a Canvas with a text object called Text. It should look something like this in the project hierarchy.
+Click on the ***GameObject***, then ***UI***, then ***Text*** menu items. This will create a Canvas with a text object called Text. It should look something like this in the project hierarchy.
 
 ![Text1.png](ReadMeImages/Text1.png)
 
