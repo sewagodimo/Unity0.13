@@ -54,12 +54,14 @@ Getting the hang of setting up game objects yet? Well select the Text object and
 
 If you look at the game view you should see the text in the bottom left hand corner! If not double check all the component variables on the Text object.
 
-The error message is still there you say? Well lets get rid of it. Drag the Text object from the hierarchy onto the "Collectable Spawner" and Player's "Player controller" script. The text should be working now! Yay! A complete game!
+The error message is still there you say? Well lets get rid of it. Drag the Text object from the hierarchy onto the "*Collectable Spawner*" and Player's "*Player controller*" script. 
+The text should be working now! You now have a game!
 
 ![Complete.png](ReadMeImages/Complete.png)
 
 ## Now the scripts... ##
-Wondering how all the scripts work? Well lets go look at them! Maybe we can even find some things to add to the game ;)
+Wondering how all the scripts work? Well lets go look at a few of them! 
+Maybe we can even find some things to add to the game ;)
 
 ### The player controller ###
 The player controller controls a few things. This includes the player movement, particle effect creation and score manipulation. 
@@ -99,7 +101,7 @@ void FixedUpdate ()
 }
 ```
 
-The ***OnTriggerEnter*** event is called when a collider collides with a collider that acts as a trigger (the IsTrigger check box is ticked). A trigger collider does not react phyiscally, but will be called on collisions. In contrast the ***OnCollisionEnter*** event is called between to colliders that are not triggers, which also react physically with one another. Try making the *Collectable* object's collider non-trigger and replace the OnTriggerEnter function with [OnCollisionEnter](http://docs.unity3d.com/ScriptReference/Collider.OnCollisionEnter.html).
+The ***OnTriggerEnter*** event is called when a collider collides with a [trigger collider](https://unity3d.com/learn/tutorials/modules/beginner/physics/colliders-as-triggers) (the IsTrigger check box is ticked). A trigger collider does not react phyiscally, but will be call OnTriggerEnter on collisions. In contrast, the ***OnCollisionEnter*** event is called when two non-trigger colliders collide physically with one another. Try making the *Collectable* object's collider non-trigger and replace the OnTriggerEnter function with [OnCollisionEnter](http://docs.unity3d.com/ScriptReference/Collider.OnCollisionEnter.html).
 
 ```csharp
 void OnTriggerEnter(Collider other)
@@ -137,3 +139,15 @@ void OnTriggerEnter(Collider other)
     }
 }
 ```
+
+Notice the commented out line? Well if you uncomment it, it will restart the game after 5 seconds when all the collectables have been found. Unity's [**Invoke**](http://docs.unity3d.com/ScriptReference/MonoBehaviour.Invoke.html) method calls the method "***ReloadScene***" asynchronously after delay. 
+
+```
+#!c#
+void ReloadScene()
+{
+    SceneManager.LoadScene("RollABall");
+}
+```
+
+ 
