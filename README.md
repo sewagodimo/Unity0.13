@@ -1,7 +1,7 @@
 [TOC]
 
 # Roll-A-Ball Tutorial #
-This project is a tutorial based on Unity3D's [Roll-A-Ball](https://unity3d.com/learn/tutorials/projects/roll-ball-tutorial) tutorial.
+This project is a tutorial based on Unity3D's [Roll-A-Ball](https://unity3d.com/learn/tutorials/projects/roll-ball-tutorial) tutorial. I would recommend doing the original tutorial before doing this one. You might notice where I have added a few extra bits :)
 
 ## What is this tutorial for? ##
 This tutorial acts as an introduction to the Unity work-flow. In this tutorial, you will learn how to use GameObjects, Prefabs, components (e.g. MonoBehaviours) and Scenes.
@@ -149,5 +149,3 @@ void ReloadScene()
     SceneManager.LoadScene("RollABall");
 }
 ```
-
- 
