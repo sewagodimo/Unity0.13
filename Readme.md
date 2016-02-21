@@ -11,7 +11,7 @@ This tutorial acts as an introduction to the Unity work-flow. In this tutorial, 
 
 ### Play the game! ###
 Press the play button.
-![Play button image here...](http://www.addictedtoibiza.com/wp-content/uploads/2012/12/example.png)
+![Play button image here...](ReadMeImages/PlayPauseFrame.png)
 
 Do you notice the red text
 
