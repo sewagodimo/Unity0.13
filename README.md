@@ -75,7 +75,7 @@ Wondering how all the scripts work? Well lets go look at them! Maybe we can even
 ### The player controller ###
 The player controller controls a few things. This includes the player movement, particle effect creation and score manipulation. 
 
-First we have variable declarations and variable caching. The *Speed*, *CollectableParticlePrefab* and *ScoreText* objects are public, which allows them to be set in the Editor. (Watch out for overwriting the values between script and inspector!)
+First we have variable declarations and component caching. The *Speed*, *CollectableParticlePrefab* and *ScoreText* objects are public, which allows them to be set in the Editor. (Watch out for overwriting the values between script and inspector!)
 
 ```csharp
 public float Speed;
@@ -94,7 +94,9 @@ void Start ()
 }
 ```
 
-The movement is handled in the ***FixedUpdate*** event. As we are doing physics calculations, we want to do this in synch with the physics engine. If you would like to do this in the Update make sure to use deltaTime! The <code>Input.GetAxis("Horizontal")</code> and <code>Input.GetAxis ("Vertical")</code> are a short hand for getting the individual input keys, such as <code>Input.GetKey(KeyCode.UpArrow)</code>. 
+The movement is handled in the ***FixedUpdate*** event. As we are doing physics calculations, we want to do this in-synch with the physics engine. If you would like to do this in the Update make sure to use deltaTime! 
+
+The <code>Input.GetAxis("Horizontal")</code> and <code>Input.GetAxis ("Vertical")</code> are a short hand for getting the individual input keys, such as <code>Input.GetKey(KeyCode.UpArrow)</code>. 
 
 A force is applied in the direction of movement across the X-Z plane. This is calculated in the ***movement*** variable. Notice how the Speed variable is used here? Well you can adjust the Speed in the inspector during play to find the best movement force.
 
@@ -110,7 +112,7 @@ void FixedUpdate ()
 }
 ```
 
-The ***OnTriggerEnter*** event is called when a collider collides with a collider that acts as a trigger (the IsTrigger check box is ticked). A trigger collider does not react phyiscally, but will be called on collisions. In contrast the ***OnCollisionEnter*** event is called between to colliders that are not triggers, which also react physically with one another. Try making the *Collectable* object's collider non-trigger and replace the OnTriggerEnter function with [OnCollisionEnter](http://docs.unity3d.com/ScriptReference/Collider.OnCollisionEnter.html).
+The ***OnTriggerEnter*** event is called when a collider collides with a collider that acts as a trigger (the IsTrigger check box is ticked). A trigger collider does not react phyiscally, but will be called on collisions. In contrast the ***OnCollisionEnter*** event is called between to colliders that are not triggers, which also react physically with one another. Try making the *Collectable* object's collider non-trigger and replace the OnTriggerEnter function with the [OnCollisionEnter](http://docs.unity3d.com/ScriptReference/Collider.OnCollisionEnter.html).
 
 ```csharp
 void OnTriggerEnter(Collider other)
