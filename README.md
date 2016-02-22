@@ -63,7 +63,9 @@ Getting the hang of setting up game objects yet? Well select the Text object and
 
 If you look at the game view you should see the text in the bottom left hand corner! If not double check all the component variables on the Text object.
 
-The error message is still there you say? Well lets get rid of it. Drag the Text object from the hierarchy onto the "Collectable Spawner" and Player's "Player controller" script. The text should be working now! Yay! A complete game!
+The warning message is still there you say? Well lets get rid of it. Drag the Text object from the hierarchy onto the "Collectable Spawner" and Player's "Player controller" script.
+
+The text should be working now! Yay! A complete game!
 
 ![Complete.png](ReadMeImages/Complete.png)
 
@@ -75,7 +77,7 @@ The player controller controls a few things. This includes the player movement, 
 
 First we have variable declarations and variable caching. The *Speed*, *CollectableParticlePrefab* and *ScoreText* objects are public, which allows them to be set in the Editor. (Watch out for overwriting the values between script and inspector!)
 
-```c#
+```csharp
 public float Speed;
 public GameObject CollectableParticlePrefab;
 public Text ScoreText;
@@ -83,7 +85,7 @@ public Text ScoreText;
 
 Next the ***RigidBody*** component is chached in the **Start** event. It would be very expensive to get the RigidBody in every update!
 
-```c#
+```csharp
 private Rigidbody _rigidBody;
 
 void Start ()
@@ -96,7 +98,7 @@ The movement is handled in the ***FixedUpdate*** event. As we are doing physics 
 
 A force is applied in the direction of movement across the X-Z plane. This is calculated in the ***movement*** variable. Notice how the Speed variable is used here? Well you can adjust the Speed in the inspector during play to find the best movement force.
 
-```c#
+```csharp
 void FixedUpdate ()
 {
 	float moveHorizontal = Input.GetAxis ("Horizontal");
@@ -110,7 +112,7 @@ void FixedUpdate ()
 
 The ***OnTriggerEnter*** event is called when a collider collides with a collider that acts as a trigger (the IsTrigger check box is ticked). A trigger collider does not react phyiscally, but will be called on collisions. In contrast the ***OnCollisionEnter*** event is called between to colliders that are not triggers, which also react physically with one another. Try making the *Collectable* object's collider non-trigger and replace the OnTriggerEnter function with [OnCollisionEnter](http://docs.unity3d.com/ScriptReference/Collider.OnCollisionEnter.html).
 
-```c#
+```csharp
 void OnTriggerEnter(Collider other)
 {
 	if (other.gameObject.tag == "Collectable") 
