@@ -112,7 +112,7 @@ void FixedUpdate ()
 }
 ```
 
-The ***OnTriggerEnter*** event is called when a collider collides with a collider that acts as a trigger (the IsTrigger check box is ticked). A trigger collider does not react phyiscally, but will be called on collisions. In contrast the ***OnCollisionEnter*** event is called between to colliders that are not triggers, which also react physically with one another. Try making the *Collectable* object's collider non-trigger and replace the OnTriggerEnter function with the [OnCollisionEnter](http://docs.unity3d.com/ScriptReference/Collider.OnCollisionEnter.html).
+The ***OnTriggerEnter*** event is called when a collider collides with a collider that acts as a trigger (the IsTrigger check box is ticked). A trigger collider does not react phyiscally, but will be called on collisions. In contrast the ***OnCollisionEnter*** event is called between to colliders that are not triggers, which also react physically with one another. **Try making the *Collectable* object's collider non-trigger and replace the OnTriggerEnter function with the [OnCollisionEnter](http://docs.unity3d.com/ScriptReference/Collider.OnCollisionEnter.html).**
 
 ```csharp
 void OnTriggerEnter(Collider other)
@@ -150,3 +150,41 @@ void OnTriggerEnter(Collider other)
     }
 }
 ```
+
+### The rotator script ###
+The "***Rotator***"script is very simple at the moment. Attach it to your "***Collectable***" prefab to make your Collectable's rotate.
+```csharp
+public class Rotator : MonoBehaviour
+{
+	void Update()
+	{
+		//Note how deltatime is used here (Hint: not in FixedUpdate!)
+		transform.Rotate(new Vector3(15f,30f,45f)*Time.deltaTime);
+	}
+}
+```
+
+**Try add a random spin direction and speed to the rotation.**
+
+### The Collectable Spawner script ###
+The "**Collectable Spawner**" script instantiates a number of collectables in a circle. This is oriented from the transforms position and rotation, so try modify the transform! See how it effects the spawn positions?
+
+```csharp
+void OnEnable ()
+{
+    for (int i = 0; i<NumberOfCollectables; i++)
+    {
+        Vector3 spawnPosition = transform.position;
+        spawnPosition += new Vector3 (Mathf.Sin((Mathf.PI*2 /NumberOfCollectables)*i ),0, Mathf.Cos((Mathf.PI*2 /NumberOfCollectables)*i)) * SpawnRadius;
+        Instantiate(CollectablePrefab, spawnPosition, transform.rotation);
+        NumCollectables++;
+
+    }
+}
+```
+**Try add spawn position randomization by using:**
+```csharp
+Random.Range()
+```.
+
+Notice that the instantiation is is in an **OnEnable** function? With your new randomisation, try enable or disable the Collectable Spawner when the game is playing.
