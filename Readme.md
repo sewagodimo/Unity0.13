@@ -3,13 +3,15 @@
 # Roll-A-Ball Tutorial #
 This project is a tutorial based on Unity3D's [Roll-A-Ball](https://unity3d.com/learn/tutorials/projects/roll-ball-tutorial) tutorial.
 
+# Roll-A-Ball Tutorial 2.0 #
+
 ## What is this tutorial for? ##
-This tutorial acts as an introduction to the Unity work-flow. In this tutorial, you will learn how to use GameObjects, Prefabs, components (e.g. MonoBehaviours) and Scenes.
+This tutorial acts as an introduction to the Unity work-flow. In contrast to the original Roll-A-Ball tutorial (which you should do), in this tutorial you will be fixing all the broken things! 
+
+Hopefully by the end of this tutorial, you will understand how to use GameObjects, Prefabs, Components (e.g. MonoBehaviours) and Scenes a little better.
 
 ## Who do I talk to? ##
 * If you have any questions, please contact the owner of this project (Ryan Mazzolini).
-
-# Roll-A-Ball Tutorial 2.0 #
 
 ## How do I get set up? ##
 * Clone the project from [https://bitbucket.org/creative630/rollaball](https://bitbucket.org/creative630/rollaball)
@@ -17,12 +19,12 @@ This tutorial acts as an introduction to the Unity work-flow. In this tutorial, 
 * If not open already, open the "**RollABall**" scene in the Scenes folder under the project view.
 
 ### Play the game! ###
-Press the play button.
+Press the play button. (The left most button in the image below.)
 
 ![Play button image here...](ReadMeImages/PlayPauseFrame.png)
 
 You can move around in the game by using the ***WSAD***, or ***arrow keys***.
-You might notice that you can't do very much in the game at the moment.
+You might notice that you can't do very much in the game at the moment. You can roll around.... and that's it.
 
 ### Lets fix this! ###
 
@@ -40,8 +42,15 @@ If you run the game at this point you should receive an "**UnassignedReferenceEx
 
 Run the game! You should now be able to bash into collectables, which breaks apart and plays an audio clip.
 
-Do you notice the red text saying "**ScoreText is null**" when you bashed into a collectable?? Well that's no good...
+Do you notice the yellow warning-text saying "**ScoreText is null**" when you bashed into a collectable?? Well that's no good...
 I think one of the components is trying to tell you something...
+
+``` csharp
+if(ScoreText == null)
+{
+    Debug.LogWarning("ScoreText is null!");
+}
+```
 
 ### Lets add text UI! ###
 Click on the ***GameObject***, then ***UI***, then ***Text*** menu items. This will create a Canvas with a text object called Text. It should look something like this in the project hierarchy.
