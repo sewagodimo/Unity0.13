@@ -63,7 +63,9 @@ Getting the hang of setting up game objects yet? Well select the Text object and
 
 If you look at the game view you should see the text in the bottom left hand corner! If not double check all the component variables on the Text object.
 
-The error message is still there you say? Well lets get rid of it. Drag the Text object from the hierarchy onto the "Collectable Spawner" and Player's "Player controller" script. The text should be working now! Yay! A complete game!
+The warning message is still there you say? Well lets get rid of it. Drag the Text object from the hierarchy onto the "Collectable Spawner" and Player's "Player controller" script.
+
+The text should be working now! Yay! A complete game!
 
 ![Complete.png](ReadMeImages/Complete.png)
 
@@ -73,9 +75,9 @@ Wondering how all the scripts work? Well lets go look at them! Maybe we can even
 ### The player controller ###
 The player controller controls a few things. This includes the player movement, particle effect creation and score manipulation. 
 
-First we have variable declarations and variable caching. The *Speed*, *CollectableParticlePrefab* and *ScoreText* objects are public, which allows them to be set in the Editor. (Watch out for overwriting the values between script and inspector!)
+First we have variable declarations and component caching. The *Speed*, *CollectableParticlePrefab* and *ScoreText* objects are public, which allows them to be set in the Editor. (Watch out for overwriting the values between script and inspector!)
 
-```c#
+```csharp
 public float Speed;
 public GameObject CollectableParticlePrefab;
 public Text ScoreText;
@@ -83,7 +85,7 @@ public Text ScoreText;
 
 Next the ***RigidBody*** component is chached in the **Start** event. It would be very expensive to get the RigidBody in every update!
 
-```c#
+```csharp
 private Rigidbody _rigidBody;
 
 void Start ()
@@ -92,11 +94,13 @@ void Start ()
 }
 ```
 
-The movement is handled in the ***FixedUpdate*** event. As we are doing physics calculations, we want to do this in synch with the physics engine. If you would like to do this in the Update make sure to use deltaTime! The <code>Input.GetAxis("Horizontal")</code> and <code>Input.GetAxis ("Vertical")</code> are a short hand for getting the individual input keys, such as <code>Input.GetKey(KeyCode.UpArrow)</code>. 
+The movement is handled in the ***FixedUpdate*** event. As we are doing physics calculations, we want to do this in-synch with the physics engine. If you would like to do this in the Update make sure to use deltaTime! 
+
+The <code>Input.GetAxis("Horizontal")</code> and <code>Input.GetAxis ("Vertical")</code> are a short hand for getting the individual input keys, such as <code>Input.GetKey(KeyCode.UpArrow)</code>. 
 
 A force is applied in the direction of movement across the X-Z plane. This is calculated in the ***movement*** variable. Notice how the Speed variable is used here? Well you can adjust the Speed in the inspector during play to find the best movement force.
 
-```c#
+```csharp
 void FixedUpdate ()
 {
 	float moveHorizontal = Input.GetAxis ("Horizontal");
@@ -108,9 +112,9 @@ void FixedUpdate ()
 }
 ```
 
-The ***OnTriggerEnter*** event is called when a collider collides with a collider that acts as a trigger (the IsTrigger check box is ticked). A trigger collider does not react phyiscally, but will be called on collisions. In contrast the ***OnCollisionEnter*** event is called between to colliders that are not triggers, which also react physically with one another. Try making the *Collectable* object's collider non-trigger and replace the OnTriggerEnter function with [OnCollisionEnter](http://docs.unity3d.com/ScriptReference/Collider.OnCollisionEnter.html).
+The ***OnTriggerEnter*** event is called when a collider collides with a collider that acts as a trigger (the IsTrigger check box is ticked). A trigger collider does not react phyiscally, but will be called on collisions. In contrast the ***OnCollisionEnter*** event is called between to colliders that are not triggers, which also react physically with one another. **Try making the *Collectable* object's collider non-trigger and replace the OnTriggerEnter function with the [OnCollisionEnter](http://docs.unity3d.com/ScriptReference/Collider.OnCollisionEnter.html).**
 
-```c#
+```csharp
 void OnTriggerEnter(Collider other)
 {
 	if (other.gameObject.tag == "Collectable") 
@@ -146,3 +150,41 @@ void OnTriggerEnter(Collider other)
     }
 }
 ```
+
+### The rotator script ###
+The "***Rotator***"script is very simple at the moment. Attach it to your "***Collectable***" prefab to make your Collectable's rotate.
+```csharp
+public class Rotator : MonoBehaviour
+{
+	void Update()
+	{
+		//Note how deltatime is used here (Hint: not in FixedUpdate!)
+		transform.Rotate(new Vector3(15f,30f,45f)*Time.deltaTime);
+	}
+}
+```
+
+**Try add a random spin direction and speed to the rotation.**
+
+### The Collectable Spawner script ###
+The "**Collectable Spawner**" script instantiates a number of collectables in a circle. This is oriented from the transforms position and rotation, so try modify the transform! See how it effects the spawn positions?
+
+```csharp
+void OnEnable ()
+{
+    for (int i = 0; i<NumberOfCollectables; i++)
+    {
+        Vector3 spawnPosition = transform.position;
+        spawnPosition += new Vector3 (Mathf.Sin((Mathf.PI*2 /NumberOfCollectables)*i ),0, Mathf.Cos((Mathf.PI*2 /NumberOfCollectables)*i)) * SpawnRadius;
+        Instantiate(CollectablePrefab, spawnPosition, transform.rotation);
+        NumCollectables++;
+
+    }
+}
+```
+**Try add spawn position randomization by using:**
+```csharp
+Random.Range()
+```.
+
+Notice that the instantiation is is in an **OnEnable** function? With your new randomisation, try enable or disable the Collectable Spawner when the game is playing.
