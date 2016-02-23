@@ -114,7 +114,7 @@ void FixedUpdate ()
 
 The ***OnTriggerEnter*** event is called when a collider collides with a collider that acts as a trigger (the IsTrigger check box is ticked). A trigger collider does not react phyiscally, but will be called on collisions. In contrast the ***OnCollisionEnter*** event is called between to colliders that are not triggers, which also react physically with one another. **Try making the *Collectable* object's collider a non-trigger collider and replace the OnTriggerEnter function with the [OnCollisionEnter](http://docs.unity3d.com/ScriptReference/Collider.OnCollisionEnter.html).**
 
-**Edit:** If you were having trouble with the trigger/collision. The OnTriggerEnter will only get called if the Collectables IsTrigger checkbox is checked (this is now ticked by default). For the OnCollisionEnter to be called the checkbox must **not** be checked.
+**Edit:** If you were having trouble with the trigger/collision. The **OnTriggerEnter** will only get called if the Collectable's *IsTrigger* check-box is checked (this is now ticked by default). For the OnCollisionEnter to be called the check-box must **not** be checked.
 
 ```csharp
 void OnTriggerEnter(Collider other)
